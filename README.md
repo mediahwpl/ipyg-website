@@ -44,7 +44,7 @@ npm run cert               # сертификатыг дахин үүсгэх
 ## Бүтэц
 
 ```
-index.html          # Who We Are (мэдээ + холбоо барих хэсэгтэй)
+index.html          # Бид хэн бэ (мэдээ + холбоо барих хэсэгтэй)
 what-we-do.html
 our-history.html
 partnership.html

@@ -65,6 +65,7 @@ async function renderContact() {
   try {
     const s = await fetchJSON('/api/settings');
     const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+    const label = (id, text) => { const el = document.getElementById(id); const l = el && el.querySelector('.b-label'); if (l) l.textContent = text; };
     const attr = (id, name, value) => { const el = document.getElementById(id); if (el) el.setAttribute(name, value); };
     const igHandle = String(s.instagram || '').replace(/^@/, '');
     const fbName = String(s.facebook || '');
@@ -75,9 +76,9 @@ async function renderContact() {
 
     if (mail) { attr('ctMail', 'href', `mailto:${mail}`); set('ftMail', mail); attr('ftMail', 'href', `mailto:${mail}`); }
     if (igHandle) { attr('ctIg', 'href', `https://instagram.com/${igHandle}`); attr('ftIg', 'href', `https://instagram.com/${igHandle}`); }
-    if (fbName) { set('ctFb', 'f · ' + fbName); attr('ftFb', 'href', 'https://facebook.com/' + encodeURIComponent(fbName).replace(/%20/g, '.')); }
+    if (fbName) { label('ctFb', fbName); attr('ftFb', 'href', 'https://facebook.com/' + encodeURIComponent(fbName).replace(/%20/g, '.')); }
     if (fbGroup) attr('ftFb', 'href', fbGroup);
-    if (phoneFirst) { attr('ctPhone', 'href', `tel:+976${phoneFirst}`); set('ctPhone', '☎ ' + phones.join(', ')); }
+    if (phoneFirst) { attr('ctPhone', 'href', `tel:+976${phoneFirst}`); label('ctPhone', phones.join(', ')); }
     if (phones.length) { set('ftPhones', phones.join(', ')); attr('ftPhones', 'href', `tel:+976${phoneFirst}`); }
     if (s.address) set('ftAddress', s.address);
     if (phones.length) set('contactPhones', 'Утас: ' + phones.join(' / '));
