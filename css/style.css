@@ -1125,9 +1125,9 @@ p { margin-top: 0; margin-bottom: 20px; }
 .full-row.tinted { background: #f7fcff; }
 .full-row.gray { background: #f7f7f8; }
 .full-row .inner { padding-top: 20px; padding-bottom: 20px; }
-.full-row p:not(.eyebrow):not(.title3):not(.motto) { text-align: left; }
+.full-row p:not(.eyebrow):not(.title3):not(.motto) { text-align: justify; text-justify: inter-word; }
 .intro-copy .inner { max-width: 1100px; }
-.intro-copy p { font-size: 18px; line-height: 1.6; text-align: left; margin-top: 0; margin-bottom: 20px; }
+.intro-copy p { font-size: 18px; line-height: 1.6; text-align: justify; text-justify: inter-word; margin-top: 0; margin-bottom: 20px; }
 
 /* Байгууллагын гарчиг + лого: 38px/700/төв/хар, зураг 300px */
 .organization-brand { padding: 30px 30px 20px; }
