@@ -247,6 +247,18 @@ async function handleRequest(req, res) {
       if (pathname === '/api/news' && req.method === 'POST') {
         if (!requireAuth()) return;
         const body = await readBody(req);
+        if (body.id) {
+          const news = await getNews();
+          const item = news.find(n => n.id === String(body.id));
+          if (!item) return json(res, 404, { error: 'Мэдээ олдсонгүй.' });
+          if (body.date !== undefined) item.date = String(body.date).trim();
+          if (body.title !== undefined) item.title = String(body.title).trim();
+          if (body.text !== undefined) item.text = String(body.text).trim();
+          if (body.thumbnail !== undefined) item.thumbnail = cleanImageUrl(body.thumbnail);
+          if (body.images !== undefined) item.images = Array.isArray(body.images) ? body.images.map(cleanImageUrl).filter(Boolean) : [];
+          await writeJSON(newsFile, news);
+          return json(res, 200, { ok: true, item });
+        }
         const title = String(body.title || '').trim();
         const date = String(body.date || '').trim();
         const text = String(body.text || '').trim();

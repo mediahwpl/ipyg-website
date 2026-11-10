@@ -1281,3 +1281,91 @@ p { margin-top: 0; margin-bottom: 20px; }
   .news-grid { grid-template-columns: 1fr; }
   .news-item { margin-bottom: 34px; padding: 0; }
 }
+
+/* YEPC: цэгцтэй сургалтын мэдээлэл */
+.yepc-section { background: #faf9f6; }
+.yepc-section > .inner { max-width: 1100px; }
+.yepc-intro-copy { max-width: 960px; margin: 0 auto 34px; padding: 4px 0 8px; }
+.yepc-intro-copy p { color: #4c5661; font-size: 18px; line-height: 1.85; text-align: justify; text-justify: inter-word; }
+.yepc-benefits { padding: 32px; border-radius: 18px; background: linear-gradient(135deg, #8f421e, #b55c20); box-shadow: 0 14px 34px rgba(90, 48, 25, .14); text-align: left; }
+.yepc-benefits-heading { justify-content: flex-start; margin: 0 0 22px; }
+.yepc-benefits h3 { color: #fff; font-size: 25px; letter-spacing: 0; }
+.yepc-benefit-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.yepc-benefit-cards article { position: relative; display: flex; align-items: flex-start; min-height: 150px; padding: 24px 20px 22px 58px; border: 1px solid rgba(255,255,255,.7); border-radius: 13px; background: #fffaf4; color: #49352a; font-size: 15px; line-height: 1.65; text-align: left; }
+.yepc-benefit-cards article::before { content: "✓"; position: absolute; top: 20px; left: 18px; display: grid; width: 26px; height: 26px; place-items: center; border-radius: 50%; background: #e9b85b; color: #fff; font-weight: 800; }
+.yepc-details { display: block; margin: 34px 0 20px; }
+.yepc-topics { padding: 30px; border: 1px solid #e8e3d8; border-radius: 18px; background: #fff; box-shadow: 0 10px 28px rgba(32,46,35,.05); }
+.yepc-details h3, .yepc-outcome h3, .yepc-quote-section h3 { color: #873d18; font-size: 25px; letter-spacing: 0; }
+.yepc-topics .topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0; list-style: none; counter-reset: yepc-topic; }
+.yepc-topics .topic-grid li { position: relative; min-height: 70px; margin: 0; padding: 18px 18px 18px 60px; border: 1px solid #f0e7d7; border-radius: 12px; background: #fffaf1; color: #424b52; line-height: 1.55; }
+.yepc-topics .topic-grid li::before { counter-increment: yepc-topic; content: counter(yepc-topic, decimal-leading-zero); position: absolute; top: 17px; left: 17px; color: #b85c24; font-size: 17px; font-weight: 800; }
+.yepc-topics .topic-grid li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.yepc-outcome { margin: 24px 0 42px; padding: 32px; border: 1px solid #dce9d7; border-radius: 18px; background: linear-gradient(135deg, #f3f8ef, #e9f2e4); text-align: left; }
+.yepc-outcome h3 { margin-bottom: 12px; color: #2f6c3b; }
+.yepc-outcome p { max-width: 880px; margin: 0; color: #3f5141; font-size: 17px; line-height: 1.8; text-align: justify; text-justify: inter-word; }
+.yepc-quote-section { display: grid; grid-template-columns: 1fr; gap: 0; }
+.yepc-quote-section > h3 { margin-bottom: 6px; }
+.yepc-quote-section .lesson { margin-top: 16px; padding: 22px; border-color: #e6e9e5; border-radius: 15px; box-shadow: 0 8px 24px rgba(32,46,35,.045); }
+.yepc-quote-section .lesson-head { padding-bottom: 14px; border-bottom: 1px solid #edf0ed; }
+.yepc-quote-section .lesson-n { background: #a95024; }
+.yepc-quote-section .lesson .quote-grid { gap: 12px; margin-top: 14px; }
+.yepc-quote-section .quote-grid blockquote { position: relative; padding: 18px 20px 18px 42px; border: 1px solid #e8ede8; border-radius: 12px; background: #f8faf7; color: #46504a; font-size: 15px; line-height: 1.7; }
+.yepc-quote-section .quote-grid blockquote::before { content: "“"; position: absolute; top: 4px; left: 15px; color: #83a77c; font-family: Georgia, serif; font-size: 30px; }
+@media (max-width: 767px) {
+  .yepc-intro-copy { margin-bottom: 22px; }
+  .yepc-intro-copy p { font-size: 16px; }
+  .yepc-benefits { padding: 24px 18px; }
+  .yepc-benefits h3, .yepc-details h3, .yepc-outcome h3, .yepc-quote-section h3 { font-size: 21px; }
+  .yepc-benefit-cards, .yepc-topics .topic-grid, .yepc-quote-section .quote-grid { grid-template-columns: 1fr; }
+  .yepc-benefit-cards article { min-height: auto; }
+  .yepc-topics, .yepc-outcome { padding: 22px 18px; }
+  .yepc-topics .topic-grid li:last-child:nth-child(odd) { grid-column: auto; }
+  .yepc-quote-section .lesson { padding: 16px; }
+}
+
+.yepw-intro-copy { max-width: 960px; margin: 0 auto 34px; color: #4c5661; font-size: 17px; line-height: 1.8; }
+
+/* YEPW/YЕPC content polish and fully visible social marks */
+.yepw-intro-copy { max-width: 960px; margin: 0 auto 34px; padding: 22px 26px; border-left: 4px solid #459136; border-radius: 0 14px 14px 0; background: #f2f7ef; color: #405146; font-size: 17px; line-height: 1.8; text-align: justify; text-justify: inter-word; }
+#yepw { background: #faf9f6; }
+#yepw > .inner { max-width: 1100px; }
+#yepw > .inner > h3.title3 { margin: 0 0 18px; color: #285d36; font-size: 27px; }
+.yepw-strengths { gap: 16px; }
+.yepw-strengths .program-card { min-height: 190px; padding: 26px 24px; border: 1px solid #e6ebe3; border-radius: 15px; background: #fff; box-shadow: 0 10px 25px rgba(32,46,35,.055); }
+.yepw-strengths .program-card h3 { margin-bottom: 12px; color: #2f6c3b; font-size: 20px; }
+.yepw-strengths .program-card p { margin: 0; color: #59635b; line-height: 1.7; text-align: justify; text-justify: inter-word; }
+.yepw-bottom { align-items: stretch; gap: 18px; margin-top: 28px; }
+.yepw-bottom > div:first-child { padding: 26px; border: 1px solid #dce9d7; border-radius: 15px; background: linear-gradient(135deg, #f3f8ef, #e9f2e4); }
+.yepw-bottom > div:first-child h3 { color: #2f6c3b; font-size: 22px; }
+.yepw-bottom > div:first-child p { color: #405146; line-height: 1.75; text-align: justify; text-justify: inter-word; }
+.yepw-bottom .campaign-years { gap: 12px; }
+.yepw-bottom .campaign-years article { justify-content: center; border: 1px solid #ece6db; border-radius: 15px; box-shadow: 0 8px 20px rgba(32,46,35,.05); }
+.box-icon .bi { overflow: visible; }
+.box-icon .bi svg { display: block; width: 30px; height: 30px; flex: 0 0 auto; overflow: visible; }
+@media (max-width: 767px) {
+  .yepw-intro-copy { margin-bottom: 24px; padding: 18px; font-size: 16px; }
+  #yepw > .inner > h3.title3 { font-size: 23px; }
+  .yepw-strengths .program-card { min-height: auto; }
+  .yepw-bottom > div:first-child { padding: 20px; }
+}
+
+/* Match YEPC's post-logo sections to YEPW's lighter card layout */
+.yepc-benefits { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; text-align: left; }
+.yepc-benefits-heading { margin-bottom: 18px; }
+.yepc-benefits h3 { color: #285d36; font-size: 27px; letter-spacing: 0; }
+.yepc-benefit-cards { gap: 16px; }
+.yepc-benefit-cards article { display: flex; align-items: flex-start; justify-content: flex-start; min-height: 190px; padding: 26px 24px 26px 54px; border: 1px solid #e6ebe3; border-radius: 15px; background: #fff; box-shadow: 0 10px 25px rgba(32,46,35,.055); color: #59635b; font-size: 15px; line-height: 1.7; text-align: left; }
+.yepc-benefit-cards article::before { top: 24px; left: 18px; background: #459136; }
+.yepc-topics { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.yepc-topics .topic-grid li { border-color: #e6ebe3; border-radius: 14px; background: #fff; box-shadow: 0 8px 22px rgba(32,46,35,.045); color: #59635b; }
+.yepc-topics .topic-grid li::before { color: #398b3b; }
+.yepc-outcome { border-color: #dce9d7; border-radius: 15px; background: linear-gradient(135deg, #f3f8ef, #e9f2e4); box-shadow: 0 8px 22px rgba(32,46,35,.045); }
+.yepc-outcome h3 { color: #2f6c3b; }
+.yepc-quote-section .lesson { border-color: #e6ebe3; border-radius: 15px; box-shadow: 0 8px 22px rgba(32,46,35,.045); }
+.yepc-quote-section .lesson-n { background: #459136; }
+.yepc-quote-section .quote-grid blockquote { border-color: #e6ebe3; background: #f8faf7; }
+.yepw-intro-copy { margin: 0 auto 34px; padding: 4px 0 8px; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: #4c5661; }
+@media (max-width: 767px) {
+  .yepc-benefit-cards article { min-height: auto; }
+  .yepw-intro-copy { margin-bottom: 24px; padding: 4px 0 8px; }
+}

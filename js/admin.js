@@ -279,7 +279,7 @@ $('#newsForm').addEventListener('submit', async (e) => {
     if (galleryFiles.length) payload.images = await Promise.all(galleryFiles.map(uploadImage));
     else if ($('#newsClearImages').checked) payload.images = [];
     if (id) {
-      await api(`/api/news/${encodeURIComponent(id)}`, { method: 'PUT', body: JSON.stringify(payload) });
+      await api('/api/news', { method: 'POST', body: JSON.stringify({ id, ...payload }) });
       showMsg($('#newsFormMsg'), 'Шинэчлэгдлээ ✓');
     } else {
       await api('/api/news', { method: 'POST', body: JSON.stringify(payload) });
