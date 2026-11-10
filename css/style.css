@@ -1061,3 +1061,156 @@ h1, h2, h3, h4, p, li, a, time, button {
   .partner-list { grid-template-columns: 1fr; }
   .lesson-c { margin-left: 0; }
 }
+
+/* ============================================================
+   REFERENCE MATCH — https://www.hwpl.kr/language/en/ipyg-2/
+   (бүх хэмжээ, бичиг, загварыг эх сайттай адил болгох)
+   ============================================================ */
+/* Үндсэн бичиг: Noto Sans 18px/28.8px, #656a70 */
+body, button, input, select, textarea { font-family: "Noto Sans", Arial, Helvetica, sans-serif; }
+body { font-size: 18px; line-height: 1.6; color: #656a70; }
+p { margin-top: 0; margin-bottom: 20px; }
+.logo span, .main-nav, .title2, .title3,
+.about-intro h2, .program-card h2, .partner-grid h2, .timeline-list h2,
+.organization-brand h2, .work-section h2.title3, .work-section h3.title3,
+.motto, .campaign-years strong, .activities-grid h2, .audience-note,
+.language-switch button, .cover-2, .cover-motto p, .stat-num,
+.timeline time, .partner-motto, .lesson-n, .lesson-c,
+.toc-list a::before, .partner-list li::before {
+  font-family: "Noto Sans", Arial, Helvetica, sans-serif;
+}
+
+/* Header: 96px өндөр, logo 56px, nav 14px / padding 14px 20px / #181b20 */
+.header-inner { height: 96px; padding: 0 30px; }
+.logo .brand-mark { width: auto; height: 56px; object-fit: contain; }
+.main-nav > li > a { padding: 14px 20px; font-size: 14px; color: #181b20; font-weight: 400; }
+.main-nav > li > a:hover { color: #459136; }
+
+/* Page title bar: 300px, #459136 + ipyg-banner.jpg, төвжүүлсэн цагаан h1 */
+.page-title-bar {
+  min-height: 300px;
+  padding: 0 30px;
+  background-color: #459136;
+  background-image: url("../assets/ipyg-banner.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.page-title-bar .ptb-captions h1 {
+  font-family: "Noto Sans KR", "Noto Sans", Arial, sans-serif;
+  font-size: 56px;
+  font-weight: 500;
+  letter-spacing: -2px;
+  line-height: 1.2;
+  color: #fff;
+  text-align: center;
+  text-shadow: none;
+}
+.page-title-bar .ptb-captions p { font-size: 28px; font-weight: 400; color: #fff; }
+
+/* Гарчиг: .title3 32px/700/хар/1.6, .green-title 20px/700/#449235 */
+.title3 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.6;
+  letter-spacing: 0;
+  margin: 0 0 20px;
+}
+.title2 { font-size: 38px; font-weight: 700; color: #000; }
+.title3,
+.work-section h2.title3,
+.history-fields h2 { font-size: 32px; }
+.work-section h3.title3 { font-size: 23px; color: #000; }
+.green-title { font-size: 20px; font-weight: 700; color: #449235; }
+
+/* Хэсэг: padding 20px, фон #f7fcff / #f7f7f8, баримт текст энгэрээр */
+.full-row { padding: 20px; }
+.full-row.tinted { background: #f7fcff; }
+.full-row.gray { background: #f7f7f8; }
+.full-row .inner { padding-top: 20px; padding-bottom: 20px; }
+.full-row p:not(.eyebrow):not(.title3):not(.motto) { text-align: left; }
+.intro-copy .inner { max-width: 1100px; }
+.intro-copy p { font-size: 18px; line-height: 1.6; text-align: left; margin-top: 0; margin-bottom: 20px; }
+
+/* Байгууллагын гарчиг + лого: 38px/700/төв/хар, зураг 300px */
+.organization-brand { padding: 30px 30px 20px; }
+.organization-brand h2 {
+  margin: 0 auto 60px;
+  color: #000;
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0;
+  text-align: center;
+  white-space: normal;
+}
+.organization-brand img { width: min(100%, 300px); }
+
+/* Дурсгалын зураг 400px */
+.dpcw-photo { max-width: 400px; margin: 0 auto; border-radius: 0; }
+
+/* Menu-button загвар: .work-section-nav / .toc-list → #f7f7f8, хар текст, 8px 60px */
+.work-section-nav { gap: 5px; padding: 20px; }
+.work-section-nav a,
+.toc-list a {
+  background: #f7f7f8;
+  color: #000;
+  border: 0;
+  border-radius: 0;
+  padding: 8px 60px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Noto Sans", Arial, sans-serif;
+  text-align: center;
+  transition: background-color .15s;
+}
+.work-section-nav a:hover,
+.toc-list a:hover { background: #ececee; color: #000; transform: none; }
+.work-section-nav a.on,
+.toc-list a.on { background: #000; color: #fff; }
+
+/* Footer: #424242, h4 Work Sans 22px/500, линк 14px, имэйл 18px */
+.site-footer { background: #424242; padding: 40px 0 24px; }
+.site-footer h4 {
+  font-family: "Work Sans", Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.site-footer span, .site-footer li, .site-footer a { color: #fff; font-size: 14px; }
+.site-footer a[href^="mailto"] { font-size: 18px; }
+.footer-cols > div { margin-top: 0; margin-bottom: 0; }
+
+/* Мобайл/таблет дээрх хэмжээнүүдийг буцаах */
+@media (max-width: 900px) {
+  .header-inner { height: 78px; padding: 0 16px; }
+  .logo .brand-mark { width: auto; height: 56px; }
+  .main-nav > li > a { padding: 13px 14px; }
+  .page-title-bar .ptb-captions h1 { font-size: clamp(32px, 7vw, 48px); letter-spacing: -1px; }
+  .organization-brand h2 { font-size: clamp(26px, 5vw, 34px); margin-bottom: 34px; }
+  .title3, .work-section h2.title3 { font-size: clamp(25px, 3.4vw, 32px); }
+  .work-section-nav a, .toc-list a { padding: 8px 30px; }
+}
+@media (max-width: 767px) {
+  body { font-size: 16px; }
+  .header-inner { height: 68px; padding: 0 12px; }
+  .logo .brand-mark { width: auto; height: 48px; }
+  .page-title-bar { min-height: 200px; padding: 0 16px; }
+  .page-title-bar .ptb-captions h1 { font-size: clamp(28px, 8vw, 36px); letter-spacing: -1px; }
+  .page-title-bar .ptb-captions p { font-size: 18px; }
+  .title3 { font-size: 24px; }
+  .work-section h2.title3 { font-size: 24px; }
+  .work-section h3.title3 { font-size: 20px; }
+  .history-fields h2 { font-size: 24px; }
+  .title2 { font-size: 28px; }
+  .full-row { padding: 16px; }
+  .full-row .inner { padding-top: 16px; padding-bottom: 16px; }
+  .organization-brand { padding: 22px 16px 10px; }
+  .organization-brand h2 { font-size: clamp(23px, 6.5vw, 30px); margin-bottom: 26px; }
+  .work-section-nav { gap: 8px; padding: 14px 12px; }
+  .work-section-nav a, .toc-list a { padding: 8px 24px; font-size: 14px; }
+  .site-footer { padding: 30px 0 20px; }
+  .site-footer h4 { font-size: 20px; }
+}
