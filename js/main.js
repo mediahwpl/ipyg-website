@@ -46,8 +46,8 @@ async function renderNews() {
       card.innerHTML = `
         <div class="ph-img ph-${(i % 8) + 1}">${icons[i % icons.length]}</div>
         <div class="n-body">
-          <div class="n-date"></div>
           <h4></h4>
+          <div class="n-date"></div>
           <p></p>
         </div>`;
       card.querySelector('.n-date').textContent = fmtDate(item.date);

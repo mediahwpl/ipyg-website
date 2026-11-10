@@ -1214,3 +1214,72 @@ p { margin-top: 0; margin-bottom: 20px; }
   .site-footer { padding: 30px 0 20px; }
   .site-footer h4 { font-size: 20px; }
 }
+
+/* ============================================================
+   МЭДЭЭНИЙ ХУУДАС — https://www.hwpl.kr/language/en/recent-news/
+   (3 багана, хавтсан бус карт: зураг 3:2 → гарчиг → огноо)
+   ============================================================ */
+.section-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 20px 30px;
+}
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 0;
+}
+.news-item {
+  flex: none;
+  margin-bottom: 50px;
+  padding: 0 15px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.news-item:hover { transform: none; box-shadow: none; }
+.news-item .ph-img {
+  aspect-ratio: 3 / 2;
+  min-height: 0;
+  border-radius: 0;
+  font-size: 44px;
+}
+.news-item .n-body { padding: 0; }
+.news-item h4 {
+  margin: 15px 0 3px;
+  font-family: "Work Sans", Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.34;
+  color: #181b20;
+}
+.news-item h4:hover { color: #459136; }
+.news-item .n-date {
+  margin: 0 0 13px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #656a70;
+}
+.news-item .n-body p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #656a70;
+}
+.news-empty { padding: 30px 0; font-size: 16px; }
+
+@media (max-width: 900px) {
+  .news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .section-menu { padding: 16px; }
+  .section-menu .menu-button { padding: 8px 30px; }
+}
+@media (max-width: 767px) {
+  .news-grid { grid-template-columns: 1fr; }
+  .news-item { margin-bottom: 34px; padding: 0; }
+  .section-menu { gap: 5px; padding: 14px 12px; }
+  .section-menu .menu-button { padding: 8px 20px; font-size: 14px; }
+}
