@@ -80,9 +80,7 @@ async function renderContact() {
     if (phoneFirst) { attr('ctPhone', 'href', `tel:+976${phoneFirst}`); set('ctPhone', '☎ ' + phones.join(', ')); }
     if (phones.length) { set('ftPhones', phones.join(', ')); attr('ftPhones', 'href', `tel:+976${phoneFirst}`); }
     if (s.address) set('ftAddress', s.address);
-    if (s.membership) set('contactMembership', s.membership);
     if (phones.length) set('contactPhones', 'Утас: ' + phones.join(' / '));
-    if (mail) { attr('ctMember', 'href', `mailto:${mail}?subject=${encodeURIComponent('Гишүүнчлэлийн хүсэлт')}`); }
   } catch {
     /* Тохиргоо татагдаагүй бол анхдагч утга нь үлдэнэ */
   }

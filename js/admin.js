@@ -212,7 +212,6 @@ async function loadSettings() {
     $('#setFacebook').value = s.facebook || '';
     $('#setFbGroup').value = s.fbGroup || '';
     $('#setAddress').value = s.address || '';
-    $('#setMembership').value = s.membership || '';
   } catch (err) {
     showMsg($('#settingsMsg'), err.message, true);
   }
@@ -229,8 +228,7 @@ $('#settingsForm').addEventListener('submit', async (e) => {
         instagram: $('#setInstagram').value.trim(),
         facebook: $('#setFacebook').value.trim(),
         fbGroup: $('#setFbGroup').value.trim(),
-        address: $('#setAddress').value.trim(),
-        membership: $('#setMembership').value.trim()
+        address: $('#setAddress').value.trim()
       })
     });
     showMsg($('#settingsMsg'), 'Хадгалагдлаа ✓');

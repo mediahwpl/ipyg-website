@@ -52,8 +52,7 @@ const defaultSettings = {
   facebook: 'IPYG Mongolia',
   fbGroup: '',
   phones: ['90407111', '96886200'],
-  address: 'Улаанбаатар, Монгол',
-  membership: 'Гишүүнчлэлийн бүртгэл үнэгүй. Гишүүн болохын тулд бидэнд имэйлээр хүсэлтээ илгээнэ үү.'
+  address: 'Улаанбаатар, Монгол'
 };
 
 /* ================= Auth ================= */
@@ -277,7 +276,7 @@ async function handleRequest(req, res) {
         const body = await readBody(req);
         const current = await getSettings();
         const next = { ...current };
-        for (const key of ['email', 'instagram', 'facebook', 'fbGroup', 'address', 'membership']) {
+        for (const key of ['email', 'instagram', 'facebook', 'fbGroup', 'address']) {
           if (body[key] !== undefined) next[key] = String(body[key]).trim();
         }
         if (body.phones !== undefined) {
