@@ -40,6 +40,51 @@ function fmtDate(iso) {
   return `${d.getFullYear()}.${p(d.getMonth() + 1)}.${p(d.getDate())}`;
 }
 
+function safeImageUrl(value) {
+  const src = String(value || '').trim();
+  if (/^https?:\/\//i.test(src)) return src;
+  if (/^(\/?assets|\/?uploads)\/[\w./-]+$/i.test(src) && !src.includes('..')) return src;
+  return '';
+}
+
+function previewNewsImages() {
+  const thumb = safeImageUrl($('#newsThumbnail').value);
+  const thumbnailPreview = $('#newsThumbnailPreview');
+  thumbnailPreview.hidden = !thumb;
+  if (thumb) thumbnailPreview.src = thumb;
+  const images = JSON.parse($('#newsImages').value || '[]');
+  const preview = $('#newsImagesPreview');
+  preview.replaceChildren();
+  images.map(safeImageUrl).filter(Boolean).forEach((src) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Нэмэлт зураг';
+    preview.appendChild(img);
+  });
+}
+
+function fileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Зургийн файлыг уншиж чадсангүй.'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadImage(file) {
+  if (!['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(file.type)) {
+    throw new Error('JPG, PNG, WebP эсвэл GIF зураг сонгоно уу.');
+  }
+  if (file.size > 5 * 1024 * 1024) throw new Error('Зургийн хэмжээ 5 МБ-аас бага байх ёстой.');
+  const data = await fileAsDataUrl(file);
+  const result = await api('/api/uploads', {
+    method: 'POST',
+    body: JSON.stringify({ data })
+  });
+  return result.url;
+}
+
 /* ================= AUTH ================= */
 async function checkSession() {
   try {
@@ -111,12 +156,22 @@ async function loadNews() {
     const data = await api('/api/news');
     const news = data.news || [];
     if (!news.length) {
-      tbody.innerHTML = '<tr><td colspan="4" class="empty">Мэдээ байхгүй байна. "Шинэ мэдээ" товч дарж нэмнэ үү.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="5" class="empty">Мэдээ байхгүй байна. "Шинэ мэдээ" товч дарж нэмнэ үү.</td></tr>';
       return;
     }
     tbody.innerHTML = '';
     news.forEach((item) => {
       const tr = document.createElement('tr');
+
+      const tdImage = document.createElement('td');
+      tdImage.className = 'c-image';
+      const imageUrl = safeImageUrl(item.thumbnail);
+      if (imageUrl) {
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.alt = '';
+        tdImage.appendChild(img);
+      } else tdImage.textContent = '—';
 
       const tdDate = document.createElement('td');
       tdDate.className = 'c-date';
@@ -152,11 +207,11 @@ async function loadNews() {
       });
       tdActions.append(editBtn, delBtn);
 
-      tr.append(tdDate, tdTitle, tdText, tdActions);
+      tr.append(tdImage, tdDate, tdTitle, tdText, tdActions);
       tbody.appendChild(tr);
     });
   } catch (err) {
-    tbody.innerHTML = `<tr><td colspan="4" class="empty">${err.message}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" class="empty">${err.message}</td></tr>`;
   }
 }
 
@@ -166,6 +221,13 @@ function fillNewsForm(item) {
   $('#newsDate').value = item.date || '';
   $('#newsTitle').value = item.title || '';
   $('#newsText').value = item.text || '';
+  $('#newsThumbnail').value = item.thumbnail || '';
+  $('#newsImages').value = JSON.stringify(Array.isArray(item.images) ? item.images : []);
+  $('#newsThumbnailFile').value = '';
+  $('#newsImagesFiles').value = '';
+  $('#newsClearThumbnail').checked = false;
+  $('#newsClearImages').checked = false;
+  previewNewsImages();
   $('#newsTitle').focus();
 }
 
@@ -173,11 +235,31 @@ function resetNewsForm() {
   $('#newsForm').hidden = true;
   $('#newsForm').reset();
   $('#newsId').value = '';
+  previewNewsImages();
   showMsg($('#newsFormMsg'), '');
 }
 
 $('#newsNewBtn').addEventListener('click', () => fillNewsForm({ date: new Date().toISOString().slice(0, 10) }));
 $('#newsCancelBtn').addEventListener('click', resetNewsForm);
+
+$('#newsThumbnailFile').addEventListener('change', () => {
+  const file = $('#newsThumbnailFile').files[0];
+  if (!file) return previewNewsImages();
+  const preview = $('#newsThumbnailPreview');
+  preview.src = URL.createObjectURL(file);
+  preview.hidden = false;
+});
+
+$('#newsImagesFiles').addEventListener('change', () => {
+  const preview = $('#newsImagesPreview');
+  preview.replaceChildren();
+  [...$('#newsImagesFiles').files].forEach((file) => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    img.alt = file.name;
+    preview.appendChild(img);
+  });
+});
 
 $('#newsForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -185,9 +267,17 @@ $('#newsForm').addEventListener('submit', async (e) => {
   const payload = {
     date: $('#newsDate').value,
     title: $('#newsTitle').value.trim(),
-    text: $('#newsText').value.trim()
+    text: $('#newsText').value.trim(),
+    thumbnail: $('#newsThumbnail').value,
+    images: JSON.parse($('#newsImages').value || '[]')
   };
   try {
+    const thumbnailFile = $('#newsThumbnailFile').files[0];
+    if (thumbnailFile) payload.thumbnail = await uploadImage(thumbnailFile);
+    else if ($('#newsClearThumbnail').checked) payload.thumbnail = '';
+    const galleryFiles = [...$('#newsImagesFiles').files];
+    if (galleryFiles.length) payload.images = await Promise.all(galleryFiles.map(uploadImage));
+    else if ($('#newsClearImages').checked) payload.images = [];
     if (id) {
       await api(`/api/news/${encodeURIComponent(id)}`, { method: 'PUT', body: JSON.stringify(payload) });
       showMsg($('#newsFormMsg'), 'Шинэчлэгдлээ ✓');

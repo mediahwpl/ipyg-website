@@ -25,6 +25,7 @@ const mimeTypes = {
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
   '.webp': 'image/webp',
+  '.gif': 'image/gif',
   '.ico': 'image/x-icon',
   '.pem': 'application/x-pem-file'
 };
@@ -45,6 +46,7 @@ async function writeJSON(file, data) {
 const authFile = resolve(dataDir, 'auth.json');
 const newsFile = resolve(dataDir, 'news.json');
 const settingsFile = resolve(dataDir, 'settings.json');
+const newsUploadDir = resolve(root, 'uploads', 'news');
 
 const defaultSettings = {
   email: 'ipyg.mon@gmail.com',
@@ -141,6 +143,12 @@ function esc(value) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;');
 }
+function cleanImageUrl(value) {
+  const src = String(value || '').trim();
+  if (/^https?:\/\//i.test(src)) return src;
+  if (/^(\/?assets|\/?uploads)\/[\w./-]+$/i.test(src) && !src.includes('..')) return src;
+  return '';
+}
 
 /* ================= News & Settings ================= */
 async function getNews() {
@@ -212,6 +220,23 @@ async function handleRequest(req, res) {
         return true;
       };
 
+      // POST /api/uploads (authenticated image upload for news)
+      if (pathname === '/api/uploads' && req.method === 'POST') {
+        if (!requireAuth()) return;
+        const body = await readBody(req, 7_000_000);
+        const match = String(body.data || '').match(/^data:(image\/(?:jpeg|png|webp|gif));base64,([A-Za-z0-9+/]+={0,2})$/);
+        if (!match) return json(res, 400, { error: 'JPG, PNG, WebP эсвэл GIF зураг оруулна уу.' });
+        const image = Buffer.from(match[2], 'base64');
+        if (!image.length || image.length > 5 * 1024 * 1024) {
+          return json(res, 400, { error: 'Зургийн хэмжээ 5 МБ-аас хэтэрч болохгүй.' });
+        }
+        const extension = { 'image/jpeg': '.jpg', 'image/png': '.png', 'image/webp': '.webp', 'image/gif': '.gif' }[match[1]];
+        const filename = `${Date.now()}-${randomBytes(8).toString('hex')}${extension}`;
+        await mkdir(newsUploadDir, { recursive: true });
+        await writeFile(resolve(newsUploadDir, filename), image, { flag: 'wx' });
+        return json(res, 201, { url: `/uploads/news/${filename}` });
+      }
+
       // GET /api/news (нийтэд нээлттэй)
       if (pathname === '/api/news' && req.method === 'GET') {
         const news = await getNews();
@@ -232,6 +257,8 @@ async function handleRequest(req, res) {
           date,
           title,
           text,
+          thumbnail: cleanImageUrl(body.thumbnail),
+          images: Array.isArray(body.images) ? body.images.map(cleanImageUrl).filter(Boolean) : [],
           createdAt: new Date().toISOString()
         };
         news.unshift(item);
@@ -251,6 +278,8 @@ async function handleRequest(req, res) {
         if (body.date !== undefined) item.date = String(body.date).trim();
         if (body.title !== undefined) item.title = String(body.title).trim();
         if (body.text !== undefined) item.text = String(body.text).trim();
+        if (body.thumbnail !== undefined) item.thumbnail = cleanImageUrl(body.thumbnail);
+        if (body.images !== undefined) item.images = Array.isArray(body.images) ? body.images.map(cleanImageUrl).filter(Boolean) : [];
         await writeJSON(newsFile, news);
         return json(res, 200, { ok: true, item });
       }

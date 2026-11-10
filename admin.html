@@ -66,6 +66,20 @@
           <label class="span2">Тайлбар
             <textarea id="newsText" rows="4" placeholder="Мэдээний товч тайлбар"></textarea>
           </label>
+          <input type="hidden" id="newsThumbnail">
+          <input type="hidden" id="newsImages" value="[]">
+          <label class="span2">Thumbnail зураг
+            <input type="file" id="newsThumbnailFile" accept="image/jpeg,image/png,image/webp,image/gif">
+            <span class="hint">Нэг зураг сонгоно уу. JPG, PNG, WebP эсвэл GIF, 5 МБ хүртэл.</span>
+            <span class="check-inline"><input type="checkbox" id="newsClearThumbnail"> Thumbnail-ийг арилгах</span>
+            <img id="newsThumbnailPreview" class="news-image-preview" alt="Thumbnail урьдчилан харах" hidden>
+          </label>
+          <label class="span2">Нэмэлт зургууд
+            <input type="file" id="newsImagesFiles" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+            <span class="hint">Олон зураг сонгож болно. Сонгосон зургууд мэдээний дэлгэрэнгүйд харагдана.</span>
+            <span class="check-inline"><input type="checkbox" id="newsClearImages"> Бүх нэмэлт зургийг арилгах</span>
+            <div id="newsImagesPreview" class="news-images-preview"></div>
+          </label>
           <div class="form-actions span2">
             <button type="submit" class="btn btn-primary">Хадгалах</button>
             <button type="button" id="newsCancelBtn" class="btn btn-ghost">Цуцлах</button>
@@ -76,10 +90,10 @@
         <div class="card">
           <table class="admin-table">
             <thead>
-              <tr><th>Огноо</th><th>Гарчиг</th><th>Тайлбар</th><th></th></tr>
+              <tr><th>Зураг</th><th>Огноо</th><th>Гарчиг</th><th>Тайлбар</th><th></th></tr>
             </thead>
             <tbody id="newsTableBody">
-              <tr><td colspan="4" class="empty">Ачааллаж байна…</td></tr>
+              <tr><td colspan="5" class="empty">Ачааллаж байна…</td></tr>
             </tbody>
           </table>
         </div>

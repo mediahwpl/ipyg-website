@@ -31,6 +31,8 @@ function fmtDate(iso) {
 async function renderNews() {
   const grid = document.getElementById('newsGrid');
   if (!grid) return;
+  const detail = document.getElementById('newsDetail');
+  const heading = document.getElementById('newsHeading');
   try {
     let news = [];
     try {
@@ -43,31 +45,107 @@ async function renderNews() {
       const data = await fetchJSON('data/news.json');
       news = Array.isArray(data) ? data : (Array.isArray(data.news) ? data.news : []);
     }
-    news = news.slice(0, 6);
     if (!news.length) {
       grid.innerHTML = '<p class="news-empty">Одоогоор мэдээ нэмэгдээгүй байна.</p>';
       return;
     }
+    const newsId = new URLSearchParams(location.search).get('id');
+    if (newsId && detail) {
+      const item = news.find((entry) => String(entry.id) === newsId);
+      grid.hidden = true;
+      if (heading) heading.hidden = true;
+      detail.hidden = false;
+      detail.replaceChildren();
+      if (!item) {
+        detail.textContent = 'Энэ мэдээ олдсонгүй.';
+        return;
+      }
+      const back = document.createElement('a');
+      back.className = 'news-back';
+      back.href = 'news.html';
+      back.textContent = '← Бүх мэдээ';
+      const title = document.createElement('h2');
+      title.textContent = item.title || '';
+      const date = document.createElement('time');
+      date.className = 'news-detail-date';
+      date.textContent = fmtDate(item.date);
+      detail.append(back);
+      const thumbnail = safeNewsImage(item.thumbnail);
+      if (thumbnail) {
+        const hero = document.createElement('img');
+        hero.className = 'news-detail-image';
+        hero.src = thumbnail;
+        hero.alt = item.title || 'Мэдээний зураг';
+        detail.append(hero);
+      }
+      detail.append(title, date);
+      const text = document.createElement('p');
+      text.className = 'news-detail-text';
+      text.textContent = item.text || '';
+      detail.append(text);
+      const gallery = document.createElement('div');
+      gallery.className = 'news-gallery';
+      (Array.isArray(item.images) ? item.images : []).map(safeNewsImage).filter(Boolean).forEach((src, index) => {
+        const image = document.createElement('img');
+        image.src = src;
+        image.alt = `${item.title || 'Мэдээ'} — зураг ${index + 1}`;
+        gallery.append(image);
+      });
+      if (gallery.childElementCount) detail.append(gallery);
+      return;
+    }
+    if (detail) { detail.hidden = true; detail.replaceChildren(); }
+    grid.hidden = false;
+    if (heading) heading.hidden = false;
+    news = news.slice(0, 6);
     const icons = ['🕊️', '🎓', '🤝', '🎤', '📚', '🤲'];
     grid.innerHTML = '';
     news.forEach((item, i) => {
       const card = document.createElement('article');
       card.className = 'news-item';
-      card.innerHTML = `
-        <div class="ph-img ph-${(i % 8) + 1}">${icons[i % icons.length]}</div>
-        <div class="n-body">
-          <h4></h4>
-          <div class="n-date"></div>
-          <p></p>
-        </div>`;
+      const imageUrl = safeNewsImage(item.thumbnail);
+      if (imageUrl) {
+        const image = document.createElement('img');
+        image.className = 'news-thumb';
+        image.src = imageUrl;
+        image.alt = item.title || 'Мэдээний зураг';
+        card.append(image);
+      } else {
+        const placeholder = document.createElement('div');
+        placeholder.className = `ph-img ph-${(i % 8) + 1}`;
+        placeholder.textContent = icons[i % icons.length];
+        card.append(placeholder);
+      }
+      const body = document.createElement('div');
+      body.className = 'n-body';
+      const title = document.createElement('h4');
+      const titleLink = document.createElement('a');
+      titleLink.href = `news.html?id=${encodeURIComponent(item.id || '')}`;
+      titleLink.textContent = item.title || '';
+      title.append(titleLink);
+      const date = document.createElement('div');
+      date.className = 'n-date';
+      const excerpt = document.createElement('p');
+      excerpt.textContent = item.text || '';
+      const more = document.createElement('a');
+      more.className = 'news-read-more';
+      more.href = titleLink.href;
+      more.textContent = 'Дэлгэрэнгүй →';
+      body.append(title, date, excerpt, more);
+      card.append(body);
       card.querySelector('.n-date').textContent = fmtDate(item.date);
-      card.querySelector('h4').textContent = item.title || '';
-      card.querySelector('p').textContent = item.text || '';
       grid.appendChild(card);
     });
   } catch {
     grid.innerHTML = '<p class="news-empty">Мэдээг уншихад алдаа гарлаа. Сервер ажиллаж байгаа эсэхийг шалгана уу.</p>';
   }
+}
+
+function safeNewsImage(value) {
+  const src = String(value || '').trim();
+  if (/^https?:\/\//i.test(src)) return src;
+  if (/^(\/?assets|\/?uploads)\/[\w./-]+$/i.test(src) && !src.includes('..')) return src;
+  return '';
 }
 
 /* ---------- Холбоо барих тохиргоо ---------- */
