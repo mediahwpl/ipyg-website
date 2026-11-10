@@ -32,8 +32,18 @@ async function renderNews() {
   const grid = document.getElementById('newsGrid');
   if (!grid) return;
   try {
-    const data = await fetchJSON('/api/news');
-    const news = (data.news || []).slice(0, 6);
+    let news = [];
+    try {
+      const data = await fetchJSON('/api/news');
+      if (Array.isArray(data.news)) news = data.news;
+    } catch {
+      // Статик хостинг дээр API байхгүй үед нийтэд нээлттэй JSON файлыг ашиглана.
+    }
+    if (!news.length) {
+      const data = await fetchJSON('data/news.json');
+      news = Array.isArray(data) ? data : (Array.isArray(data.news) ? data.news : []);
+    }
+    news = news.slice(0, 6);
     if (!news.length) {
       grid.innerHTML = '<p class="news-empty">Одоогоор мэдээ нэмэгдээгүй байна.</p>';
       return;
