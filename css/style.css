@@ -942,6 +942,7 @@ h1, h2, h3, h4, p, li, a, time, button {
 .work-feature > div > :last-child { margin-bottom: 0; }
 .work-feature-reverse > img { order: 2; }
 .work-feature-reverse > div { order: 1; }
+.work-more-link { display: inline-block; margin-top: 8px; color: var(--ipyg-deep, #1e552d); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .yepw-strengths { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .yepw-strengths .program-card { text-align: center; }
 .yepw-bottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; margin-top: 28px; }
