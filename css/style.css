@@ -973,4 +973,91 @@ h1, h2, h3, h4, p, li, a, time, button {
 .yepc-quote-section .quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .yepc-quote-section .quote-grid blockquote { margin: 0; padding: 14px; border-radius: 8px; background: #f0f4f5; font-size: 14px; line-height: 1.5; }
 @media (max-width: 767px) { .work-section-nav { gap: 8px; padding: 14px 12px; } .work-section-nav a { padding: 9px 14px; font-size: 13px; } .work-section h3.title3 { font-size: 20px; } }
+
+/* ============================================================
+   Мэдээ, холбоо барих хэсэг (админаас удирдагдана)
+   ============================================================ */
+.news-empty { width: 100%; text-align: center; color: #7a7f86; padding: 30px 10px; }
+.news-item { box-shadow: 0 8px 24px rgba(32,46,35,.06); border: 1px solid rgba(44,76,51,.07); transition: transform .2s ease, box-shadow .2s ease; }
+.news-item:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(32,46,35,.1); }
+.news-item .n-body p { margin: 0; }
+.contact-box { background: #fff; margin-top: 16px; box-shadow: 0 8px 24px rgba(32,46,35,.05); }
+.contact-note + .contact-note { margin-top: 6px; }
+#news, #contact { scroll-margin-top: 90px; }
+@media (max-width: 767px) {
+  .news-grid { gap: 16px; }
+  .contact-box .icon-inner { justify-content: center; gap: 6px; padding: 14px 6px; }
+}
 @media (max-width: 767px) { .work-feature { grid-template-columns: 1fr; gap: 18px; margin: 24px 0 30px; } .work-feature > img { order: 0; max-height: 300px; } .work-feature > div { order: 1; } .yepw-strengths, .yepw-bottom { grid-template-columns: 1fr; } .yepc-intro-layout, .yepc-details { grid-template-columns: 1fr; gap: 18px; } .yepc-intro-copy { padding: 12px 0 0; } .yepc-benefits { padding: 22px 16px; } .yepc-benefit-cards { grid-template-columns: 1fr; } .yepc-benefits-heading { flex-wrap: wrap; gap: 10px; } .yepc-logo { width: min(210px, 80%); height: 72px; } .yepc-audience { flex-direction: row; justify-content: space-around; } .yepc-quote-section .quote-grid { grid-template-columns: 1fr; } .yepw-heading { align-items: flex-start; gap: 8px; } .yepw-logo { width: 110px; } }
+
+/* ============================================================
+   PDF portfolio: нүүр хуудас (cover, гарчиг)
+   ============================================================ */
+.cover-lines { max-width: 1100px; margin: 0 auto; padding: 26px 20px 0; }
+.cover-lines p { margin: 0; }
+.cover-1 { color: #7a7f86; font-size: 15px; letter-spacing: .04em; }
+.cover-2 { color: var(--ipyg-deep, #1e552d); font: 700 clamp(22px, 4vw, 30px)/1.3 "Montserrat", sans-serif; }
+.cover-motto { background: linear-gradient(135deg, #1e552d, #34752b); color: #fff; text-align: center; padding: 46px 20px; }
+.cover-motto p { max-width: 760px; margin: 0 auto; font: 600 clamp(18px, 3vw, 26px)/1.6 "Montserrat", sans-serif; letter-spacing: .02em; }
+.toc { max-width: 1100px; margin: 0 auto; padding: 34px 20px 6px; }
+.toc h2 { margin: 0 0 14px; }
+.toc-list { margin: 0; padding: 0; list-style: none; counter-reset: toc; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.toc-list li { counter-increment: toc; }
+.toc-list a { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border: 1px solid rgba(57,152,74,.18); border-radius: 10px; background: #fff; color: var(--ipyg-deep, #1e552d); font-weight: 600; text-decoration: none; transition: background .18s ease, transform .18s ease; }
+.toc-list a::before { content: counter(toc, decimal-leading-zero); color: var(--ipyg-green, #39984a); font: 700 14px "Montserrat", sans-serif; }
+.toc-list a:hover { background: #edf6ec; transform: translateX(4px); }
+
+/* ============================================================
+   Бидний түүх: салбарууд, тоо, таймлайн
+   ============================================================ */
+.history-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin-top: 8px; }
+.history-fields article { padding: 24px; border: 1px solid rgba(44,76,51,.08); border-radius: 14px; background: #fff; box-shadow: 0 8px 22px rgba(32,46,35,.05); }
+.history-fields h2 { margin: 0 0 14px; color: var(--ipyg-deep, #1e552d); font-size: 21px; }
+.history-fields ul { margin: 0; padding-left: 20px; }
+.history-fields li { margin: 9px 0; line-height: 1.6; }
+.history-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 30px; }
+.history-stats .stat { padding: 30px 18px; border-radius: 14px; background: #edf6ec; text-align: center; }
+.stat-num { display: block; color: var(--ipyg-green, #39984a); font: 700 clamp(34px, 5vw, 52px)/1.1 "Montserrat", sans-serif; letter-spacing: -.03em; }
+.stat-label { display: block; margin-top: 6px; color: var(--ipyg-deep, #1e552d); font-weight: 600; }
+.timeline { position: relative; margin: 26px 0 6px; padding: 0 0 0 26px; list-style: none; }
+.timeline::before { content: ""; position: absolute; top: 8px; bottom: 8px; left: 6px; width: 2px; background: linear-gradient(var(--ipyg-green, #39984a), rgba(57,152,74,.12)); }
+.timeline li { position: relative; margin-bottom: 22px; padding: 16px 20px; border: 1px solid rgba(44,76,51,.07); border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(32,46,35,.045); }
+.timeline li::before { content: ""; position: absolute; top: 22px; left: -26px; width: 12px; height: 12px; border: 3px solid var(--ipyg-green, #39984a); border-radius: 50%; background: #fff; transform: translateX(-1px); }
+.timeline time { display: inline-block; margin-bottom: 6px; padding: 4px 10px; border-radius: 7px; background: #edf6ec; color: var(--ipyg-deep, #1e552d); font: 700 13px "Montserrat", sans-serif; letter-spacing: .05em; }
+.timeline p { margin: 0; line-height: 1.6; }
+
+/* ============================================================
+   Хамтын ажиллагаа: хамтрагчид, холбоо барих
+   ============================================================ */
+.partner-list { margin: 18px 0 6px; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; counter-reset: partner; }
+.partner-list li { counter-increment: partner; position: relative; padding: 15px 16px 15px 52px; border: 1px solid rgba(44,76,51,.08); border-radius: 10px; background: #fff; box-shadow: 0 6px 18px rgba(32,46,35,.05); line-height: 1.5; }
+.partner-list li::before { content: counter(partner, decimal-leading-zero); position: absolute; left: 16px; top: 15px; color: var(--ipyg-green, #39984a); font: 700 14px "Montserrat", sans-serif; }
+.partnership-contact { text-align: center; }
+.partner-motto { max-width: 720px; margin: 0 auto 26px; color: var(--ipyg-deep, #1e552d); font: 700 clamp(22px, 3.6vw, 34px)/1.4 "Montserrat", sans-serif; }
+.contact-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; justify-content: center; }
+.contact-list li { font-size: 17px; }
+.contact-list a { color: var(--ipyg-deep, #1e552d); font-weight: 600; text-decoration: none; }
+.contact-list a:hover { text-decoration: underline; }
+.contact-list span { color: #7a7f86; font-size: 14px; }
+
+/* ============================================================
+   YEPC: хичээлийн карт + сэтгэгдэл
+   ============================================================ */
+.lesson { margin-top: 22px; padding: 20px; border: 1px solid rgba(44,76,51,.08); border-radius: 14px; background: #fff; box-shadow: 0 8px 22px rgba(32,46,35,.05); }
+.lesson-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.lesson-n { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 auto; border-radius: 50%; background: var(--ipyg-green, #39984a); color: #fff; font: 700 18px "Montserrat", sans-serif; }
+.lesson-t { display: flex; flex-direction: column; gap: 3px; flex: 1 1 220px; }
+.lesson-t strong { color: var(--ink, #202e23); font-size: 17px; line-height: 1.45; }
+.lesson-meta { color: #7a7f86; font-size: 13px; font-weight: 600; letter-spacing: .04em; }
+.lesson-c { margin-left: auto; padding: 8px 14px; border-radius: 9px; background: #edf6ec; color: var(--ipyg-deep, #1e552d); font: 700 15px/1.3 "Montserrat", sans-serif; text-align: center; }
+.lesson-c br { display: none; }
+.lesson-c::after { content: " оролцогч"; font-size: 12px; font-weight: 600; }
+.lesson .quote-grid { margin-top: 16px; }
+
+@media (max-width: 900px) { .partner-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) {
+  .toc-list { grid-template-columns: 1fr; }
+  .history-fields, .history-stats { grid-template-columns: 1fr; }
+  .partner-list { grid-template-columns: 1fr; }
+  .lesson-c { margin-left: 0; }
+}

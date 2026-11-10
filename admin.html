@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Админ панель — IPYG Mongolia</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ================= LOGIN VIEW ================= -->
+  <div id="loginView" class="login-wrap">
+    <form id="loginForm" class="login-card" autocomplete="off">
+      <img class="login-logo" src="assets/ipyg-logo.jpg" alt="IPYG Mongolia">
+      <h1>Админ панель</h1>
+      <p class="login-sub">IPYG Mongolia вэбсайтын удирдах хэсэг</p>
+      <label>Хэрэглэгчийн нэр
+        <input type="text" id="loginUser" name="username" required autofocus>
+      </label>
+      <label>Нууц үг
+        <input type="password" id="loginPass" name="password" required>
+      </label>
+      <p id="loginError" class="form-error" hidden></p>
+      <button type="submit" class="btn btn-primary btn-block">Нэвтрэх</button>
+      <a class="login-back" href="index.html">← Сайт руу буцах</a>
+    </form>
+  </div>
+
+  <!-- ================= DASHBOARD ================= -->
+  <div id="dashView" hidden>
+    <header class="admin-header">
+      <div class="admin-header-inner">
+        <a href="index.html" class="logo"><img class="brand-mark" src="assets/ipyg-logo.jpg" alt=""><span>IPYG MONGOLIA — АДМИН</span></a>
+        <div class="admin-header-right">
+          <span id="whoUser" class="who-user"></span>
+          <a href="index.html" class="btn btn-ghost">Сайт харах</a>
+          <button type="button" id="logoutBtn" class="btn btn-ghost">Гарах</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-shell">
+      <div id="pwNotice" class="notice" hidden>⚠ Анхны нууц үгээ солихыг зөвлөж байна — <button type="button" id="pwNoticeBtn" class="link-btn">Нууц үг цэс рүү очих</button></div>
+      <nav class="admin-tabs" role="tablist">
+        <button type="button" class="tab on" data-tab="news" role="tab">Мэдээ</button>
+        <button type="button" class="tab" data-tab="settings" role="tab">Тохиргоо</button>
+        <button type="button" class="tab" data-tab="password" role="tab">Нууц үг</button>
+      </nav>
+
+      <!-- ===== Мэдээ ===== -->
+      <section id="tab-news" class="tab-panel">
+        <div class="panel-head">
+          <h2>Мэдээ нэмэх / засах</h2>
+          <button type="button" id="newsNewBtn" class="btn btn-primary">+ Шинэ мэдээ</button>
+        </div>
+
+        <form id="newsForm" class="card form-grid" hidden>
+          <input type="hidden" id="newsId">
+          <label>Огноо
+            <input type="date" id="newsDate" required>
+          </label>
+          <label class="span2">Гарчиг
+            <input type="text" id="newsTitle" maxlength="200" required placeholder="Мэдээний гарчиг">
+          </label>
+          <label class="span2">Тайлбар
+            <textarea id="newsText" rows="4" placeholder="Мэдээний товч тайлбар"></textarea>
+          </label>
+          <div class="form-actions span2">
+            <button type="submit" class="btn btn-primary">Хадгалах</button>
+            <button type="button" id="newsCancelBtn" class="btn btn-ghost">Цуцлах</button>
+            <span id="newsFormMsg" class="form-msg"></span>
+          </div>
+        </form>
+
+        <div class="card">
+          <table class="admin-table">
+            <thead>
+              <tr><th>Огноо</th><th>Гарчиг</th><th>Тайлбар</th><th></th></tr>
+            </thead>
+            <tbody id="newsTableBody">
+              <tr><td colspan="4" class="empty">Ачааллаж байна…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== Тохиргоо ===== -->
+      <section id="tab-settings" class="tab-panel" hidden>
+        <div class="panel-head"><h2>Холбоо барих мэдээлэл</h2></div>
+        <form id="settingsForm" class="card form-grid">
+          <label>Имэйл
+            <input type="email" id="setEmail" placeholder="ipyg.mon@gmail.com">
+          </label>
+          <label>Утас (таслалаар)
+            <input type="text" id="setPhones" placeholder="90407111, 96886200">
+          </label>
+          <label>Instagram хаяг
+            <input type="text" id="setInstagram" placeholder="ipyg_mongolia">
+          </label>
+          <label>Facebook нэр
+            <input type="text" id="setFacebook" placeholder="IPYG Mongolia">
+          </label>
+          <label>Facebook бүлэг (холбоос)
+            <input type="text" id="setFbGroup" placeholder="https://facebook.com/groups/...">
+          </label>
+          <label>Хаяг
+            <input type="text" id="setAddress" placeholder="Улаанбаатар, Монгол">
+          </label>
+          <label class="span2">Гишүүнчлэлийн мэдээлэл
+            <textarea id="setMembership" rows="3"></textarea>
+          </label>
+          <div class="form-actions span2">
+            <button type="submit" class="btn btn-primary">Хадгалах</button>
+            <span id="settingsMsg" class="form-msg"></span>
+          </div>
+        </form>
+      </section>
+
+      <!-- ===== Нууц үг ===== -->
+      <section id="tab-password" class="tab-panel" hidden>
+        <div class="panel-head"><h2>Нууц үг солих</h2></div>
+        <form id="passwordForm" class="card form-grid narrow">
+          <label class="span2">Одоогийн нууц үг
+            <input type="password" id="oldPassword" required autocomplete="current-password">
+          </label>
+          <label class="span2">Шинэ нууц үг (хамгийн багадаа 8 тэмдэгт)
+            <input type="password" id="newPassword" required minlength="8" autocomplete="new-password">
+          </label>
+          <label class="span2">Шинэ нууц үг дахин
+            <input type="password" id="newPassword2" required minlength="8" autocomplete="new-password">
+          </label>
+          <div class="form-actions span2">
+            <button type="submit" class="btn btn-primary">Солих</button>
+            <span id="passwordMsg" class="form-msg"></span>
+          </div>
+        </form>
+        <p class="hint">Нууц үг солигдсон тохиолдолд бүх сессийг устгаж, дахин нэвтрэхийг шаардана.</p>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/admin.js" defer></script>
+</body>
+</html>
